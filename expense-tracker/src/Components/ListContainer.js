@@ -47,8 +47,9 @@ const style_Text_Container = {
     width: "110px",
     display: "flex", 
     flexDirection: "column", 
+    flexGrow: "1",
     justifyContent: "start",
-    paddingTop: "8px" 
+    paddingTop: "8px",
 };
 
 const style_title = {
@@ -67,8 +68,11 @@ const style_description = {
 const style_Price = {
     fontSize: "14px",
     fontWeight: "700",
-    textAlign: "end",
-    width: "65px"
+    display: "flex",
+    justifyContent: "end",
+    flexGrow: "1", 
+    marginRight: "12px",
+    marginLeft: "10px"
 };
 
 export default ListContainer;

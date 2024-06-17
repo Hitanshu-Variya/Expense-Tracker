@@ -1,17 +1,18 @@
 import '../../src/index.css';
 
-const TransformPageLeft = () => {
-    const Wrapper_div = document.getElementById("Wrapper");
-    console.log(Wrapper_div);
-    // Wrapper_div.style.transfom = "TranslateX(-120%)";
-}
+function ExpenseListHeader({OnAddExpense}) {
 
-function ExpenseListHeader() {
+    const HandleButtonClick = () => {
+        if(typeof(OnAddExpense) === "function") {
+            OnAddExpense();
+        }
+    };
+
     return (
         <>
             <div style={ExpenseListHeaderWrapper}>
                 <div style={Heading}>All Expenses</div>
-                <button style={NewListAddButton} onClick={TransformPageLeft()}> Add Expense </button>
+                <button style={NewListAddButton} onClick={HandleButtonClick}> Add Expense </button>
             </div>
         </>
     );
