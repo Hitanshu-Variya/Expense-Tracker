@@ -1,38 +1,47 @@
-import styled from 'styled-components';
 import '../../src/index.css';
 
-const ExpenseListHeaderWrapper = styled.div`
-    margin-top: 30px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-`;
-
-const Heading = styled.div`
-    font-size: 18px;
-    font-weight: 700;
-`;
-
-const ViewButton = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 70px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 700;
-    background-color: #ebebeb;
-`;
+const TransformPageLeft = () => {
+    const Wrapper_div = document.getElementById("Wrapper");
+    console.log(Wrapper_div);
+    // Wrapper_div.style.transfom = "TranslateX(-120%)";
+}
 
 function ExpenseListHeader() {
     return (
         <>
-            <ExpenseListHeaderWrapper>
-                <Heading>All Expenses</Heading>
-                <ViewButton> <a href='https://www.youtube.com/'>View all</a></ViewButton>
-            </ExpenseListHeaderWrapper>
+            <div style={ExpenseListHeaderWrapper}>
+                <div style={Heading}>All Expenses</div>
+                <button style={NewListAddButton} onClick={TransformPageLeft()}> Add Expense </button>
+            </div>
         </>
     );
+}
+
+const ExpenseListHeaderWrapper = {
+    marginTop: "30px",
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    marginBottom: "10px"
+}
+
+const Heading = {
+    fontSize: "18px",
+    fontWeight: "700"
+}
+
+const NewListAddButton = {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "auto",
+    padding: "0px 10px",
+    border: "none",
+    borderRadius: "20px",
+    fontSize: "12px",
+    fontWeight: "700",
+    backgroundColor: "#c7e3f7",
+    cursor: "pointer",
 }
 
 export default ExpenseListHeader; 
