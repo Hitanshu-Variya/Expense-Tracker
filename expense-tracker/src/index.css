@@ -13,5 +13,24 @@ a {
   cursor: pointer;
 }
 
+.no-spinner::-webkit-outer-spin-button,
+.no-spinner::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.Success {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.Error-Message {
+  font-size: 15px;
+  font-weight: 600;
+  color: red;
+  margin-top: 20px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
 
 
