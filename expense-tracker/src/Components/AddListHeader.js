@@ -11,7 +11,7 @@ function AddListHeader({OnBackClick}) {
     return (
         <>
             <div style={style_Header}>
-                <button style={style_BackButton} onClick={HandleClick}> <img style={style_Img} src={BackButtonImage} alt="Back Button" /> </button>
+                <button style={style_BackButton} onClick={() => {HandleClick()}}> <img style={style_Img} src={BackButtonImage} alt="Back Button" /> </button>
                 <p style={style_HeaderText}> Add Amount </p>
             </div>
         </>

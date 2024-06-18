@@ -12,7 +12,7 @@ function ExpenseListHeader({OnAddExpense}) {
         <>
             <div style={ExpenseListHeaderWrapper}>
                 <div style={Heading}>All Expenses</div>
-                <button style={NewListAddButton} onClick={HandleButtonClick}> Add Expense </button>
+                <button style={NewListAddButton} onClick={() => {HandleButtonClick()}}> Add Expense </button>
             </div>
         </>
     );

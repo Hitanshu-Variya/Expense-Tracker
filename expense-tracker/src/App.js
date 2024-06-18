@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ExpenseDisplay from './Components/ExpenseDisplay';
 import ExpenseListHeader from './Components/ExpenseListHeader';
 import ExpenseList from './Components/ExpenseList';
@@ -8,12 +8,26 @@ import TextInput from './Components/TextInput';
 import success_img from './Utils/Success.gif';
 
 function App() {
-  const [KeyNumber, HandleKeyNumber] = useState(0);
+  const [KeyNumber, HandleKeyNumber] = useState(1);
   const [transform, HandleTransform] = useState("translateX(0%)");
   const [amount, Setamount] = useState("");
   const [title, Settitle] = useState("");
   const [description, Setdescription] = useState("");
   const [listdata, Setlistdata] = useState([]);
+
+  useEffect(() => {
+    const storedExpenses = localStorage.getItem('ExpenseList');
+    if (storedExpenses) {
+      Setlistdata(JSON.parse(storedExpenses));
+    }
+  }, []);
+
+  useEffect(() => {
+    const StoredIDNumber = localStorage.getItem('ListIDNumber');
+    if (StoredIDNumber) {
+      HandleKeyNumber(JSON.parse(StoredIDNumber));
+    }
+  }, []);
 
   const AppContent = {
     display: "flex",
@@ -64,8 +78,8 @@ function App() {
     }
 
     HandleKeyNumber(KeyNumber+1);
-    if(KeyNumber === 1000) {
-      HandleKeyNumber(0);
+    if(KeyNumber >= Number.MAX_SAFE_INTEGER) {
+      HandleKeyNumber(1);
     }
 
     if(!CheckValidity(NewList)) {
@@ -74,6 +88,8 @@ function App() {
     };
 
     Setlistdata([NewList, ...listdata]);
+    localStorage.setItem('ExpenseList', JSON.stringify([NewList, ...listdata]));
+    localStorage.setItem('ListIDNumber', JSON.stringify(KeyNumber));
     ShowStatus("Success");
 
     Setamount("");
@@ -84,7 +100,9 @@ function App() {
   const HandleDeleteItem = (id) => {
     let NewList = listdata.filter(item => item.id !== id);
     Setlistdata(NewList);
-    console.log(NewList);
+    HandleKeyNumber(KeyNumber+1);
+    localStorage.setItem('ExpenseList', JSON.stringify(NewList));
+    localStorage.setItem('ListIDNumber', JSON.stringify(KeyNumber));
   }
 
   return (
@@ -104,12 +122,14 @@ function App() {
             <TextInput text="Description" value={description} onChange={HandleDescriptionChange}/>
 
             <div style={{display: "flex", flexDirection: "column", alignItems: "center", marginTop: "30px"}}> 
-              <button style={SubmitButton} onClick={HandleListAddButton}> List Expense </button> 
+              <button style={SubmitButton} onClick={() => {HandleListAddButton()}}> List Expense </button> 
               <img className="Success" src={success_img} alt="success_img"/>
               <p className="Error-Message"> *Data not registered! <br/>*It's compulsory to fill "Expense Amount" and "Expense Title" fields! </p>
             </div>
           </div>
         </div>
+
+        <p style={style_author}>Created By : Hitanshu Variya</p>
       </div>
     </>
   )
@@ -143,9 +163,15 @@ const style_wrapper = {
   height: "100vh",
   backgroundColor: "aliceblue",
   display: "flex",
+  flexDirection: "column",
   justifyContent: "center",
   alignItems: "center"
 };
+
+const style_author = {
+  marginTop: "10px",
+  fontWeight: "700"
+}
 
 const AppContainer = {
   display: "grid",
