@@ -7,6 +7,7 @@ function AmountInputWrapper({ value, onChange }) {
                 <input className="no-spinner" 
                         style={InputBox} 
                         type="number" 
+                        placeholder="50"
                         value={value}
                         onChange={onChange}
                         onFocus={HandleFocus}
@@ -52,9 +53,7 @@ const InputBox = {
     marginLeft: "30px",
     marginRight: "30px",
     height: "100%",
-    outline: "none",
-    border: "none",
-    WebkitAppearance: "none",
+    border: "none", 
     backgroundColor: "transparent"
 };
 

@@ -1,13 +1,20 @@
+import { useState } from "react";
 import styled from "styled-components";
 import Money_Image from "../Utils/money.png";
+import delete_Image from "../Utils/trash.png";
 
 function ListContainer(props) {
+    const [image, setimage] = useState(Money_Image);
+
     return (
         <>
             <ListWrapper>
                 <img style={style_Image} 
-                    src={Money_Image} alt="Money_Image">
-                </img>
+                    src={image} alt="Utility_img" 
+                    onMouseEnter={() => setimage(delete_Image)} 
+                    onMouseLeave={() => setimage(Money_Image)} 
+                    onClick={() => {props.button(props.id)}}
+                />
 
                 <div style={style_Text_Container}>
                     <p style={style_title}>{props.title}</p> 
@@ -49,7 +56,7 @@ const style_Text_Container = {
     flexDirection: "column", 
     flexGrow: "1",
     justifyContent: "start",
-    paddingTop: "8px",
+    paddingTop: "5px",
 };
 
 const style_title = {

@@ -8,6 +8,7 @@ import TextInput from './Components/TextInput';
 import success_img from './Utils/Success.gif';
 
 function App() {
+  const [KeyNumber, HandleKeyNumber] = useState(0);
   const [transform, HandleTransform] = useState("translateX(0%)");
   const [amount, Setamount] = useState("");
   const [title, Settitle] = useState("");
@@ -56,18 +57,34 @@ function App() {
   const HandleListAddButton = () => {
 
     let NewList = {
+      id: KeyNumber,
       title: title,
       description: description,
       amount: amount
     }
 
+    HandleKeyNumber(KeyNumber+1);
+    if(KeyNumber === 1000) {
+      HandleKeyNumber(0);
+    }
+
     if(!CheckValidity(NewList)) {
-      ShowStatus("Error-Message");
+      ShowStatus("Error-Message");  
       return;
     };
 
-    Setlistdata([...listdata, NewList]);
+    Setlistdata([NewList, ...listdata]);
     ShowStatus("Success");
+
+    Setamount("");
+    Settitle("");
+    Setdescription("");
+  }
+
+  const HandleDeleteItem = (id) => {
+    let NewList = listdata.filter(item => item.id !== id);
+    Setlistdata(NewList);
+    console.log(NewList);
   }
 
   return (
@@ -77,7 +94,7 @@ function App() {
           <div style={AppContent}>
             <ExpenseDisplay TotalExpense={CalulateTotalExpense(listdata)}/>
             <ExpenseListHeader OnAddExpense={HandleAddExpense}/>
-            <ExpenseList listdata={listdata}/>
+            <ExpenseList listdata={listdata} DeleteItem={HandleDeleteItem}/>
           </div>
 
           <div style={NewListAdditionContent}>
@@ -89,7 +106,7 @@ function App() {
             <div style={{display: "flex", flexDirection: "column", alignItems: "center", marginTop: "30px"}}> 
               <button style={SubmitButton} onClick={HandleListAddButton}> List Expense </button> 
               <img className="Success" src={success_img} alt="success_img"/>
-              <p className="Error-Message"> *Data not registered! <br/>*It's compulsory to fill "Amount" and "Title" fields! </p>
+              <p className="Error-Message"> *Data not registered! <br/>*It's compulsory to fill "Expense Amount" and "Expense Title" fields! </p>
             </div>
           </div>
         </div>
